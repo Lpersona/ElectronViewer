@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IpcRenderer } from 'electron';
+import { FileService } from 'src/app/service/file.service';
 
 @Component({
   selector: 'app-header',
@@ -7,7 +7,11 @@ import { IpcRenderer } from 'electron';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  constructor() {}
+  constructor(private fileService: FileService) {}
 
   ngOnInit() {}
+
+  public selectFile() {
+    this.fileService.getFile();
+  }
 }
