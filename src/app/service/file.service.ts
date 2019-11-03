@@ -15,9 +15,10 @@ export class FileService {
 
   public getFile() {
     this.ipc.send('getFiles');
-    this.ipc.on('getFileResponse', (event: any, args: any[]) => {
+    this.ipc.on('getFileResponse', (event: any, res, url) => {
       console.log(event);
-      console.log(args);
+      console.log(res);
+      console.log(url);
     });
   }
 }

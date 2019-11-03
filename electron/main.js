@@ -5,8 +5,9 @@ const {
   dialog
 } = require('electron');
 const isDevMode = require('electron-is-dev');
-
 const path = require('path');
+
+const common_function = require('./function');
 
 // const Koa = require('koa');
 // const route = require('koa-route');
@@ -80,6 +81,8 @@ ipcMain.on('getFiles', (event) => {
   })
 
   promise.then(res => {
-    event.reply('getFileResponse', res);
+    const file_path = res.filePaths[0];
+    const serveice_url = common_function.getServiceUrl(file_path);
+    event.reply('getFileResponse', res, serveice_url);
   })
 })
