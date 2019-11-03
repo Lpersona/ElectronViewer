@@ -1,6 +1,8 @@
 const {
   app,
-  BrowserWindow
+  BrowserWindow,
+  ipcMain,
+  dialog
 } = require('electron');
 const isDevMode = require('electron-is-dev');
 
@@ -70,3 +72,14 @@ app.on('activate', function () {
 });
 
 // Define any IPC or other custom functionality below here
+ipcMain.on('getFiles', (event) => {
+
+  const promise = dialog.showOpenDialog({
+    title: '选择加载文件',
+    properties: ['openFile']
+  })
+
+  promise.then(res => {
+    event.reply('getFileResponse', res);
+  })
+})
