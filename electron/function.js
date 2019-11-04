@@ -8,5 +8,10 @@ let getServiceUrl = function (fileUrl) {
   }
 }
 
+let getRandomPort = function () {
+
+}
+
 
 module.exports.getServiceUrl = getServiceUrl;
+module.exports.getRandomPort = getRandomPort;
