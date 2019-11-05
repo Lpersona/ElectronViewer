@@ -8,21 +8,37 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
   MatToolbarModule,
   MatMenuModule,
-  MatButtonModule
+  MatButtonModule,
+  MatSidenavModule,
+  MatDividerModule,
+  MatListModule,
+  MatSlideToggleModule,
+  MatIconModule
 } from '@angular/material';
 
 import { HeaderComponent } from './components/header/header.component';
 import { EarthComponent } from './components/earth/earth.component';
+import { TilelistComponent } from './components/tilelist/tilelist.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, EarthComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    EarthComponent,
+    TilelistComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatToolbarModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatListModule,
+    MatSlideToggleModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]

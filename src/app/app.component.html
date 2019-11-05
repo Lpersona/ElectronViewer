@@ -1,4 +1,11 @@
 <section class="app-contaienr">
   <app-header></app-header>
-  <app-earth></app-earth>
+  <mat-drawer-container>
+    <mat-drawer #sidebar='' mode="over" [(opened)]="sidebarState">
+      <app-tilelist></app-tilelist>
+    </mat-drawer>
+    <mat-drawer-content>
+      <app-earth></app-earth>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </section>
