@@ -7,7 +7,10 @@ const {
 const isDevMode = require('electron-is-dev');
 const path = require('path');
 
-const common_function = require('./function');
+const {
+  getServiceUrl,
+  checkFileFromat
+} = require('./function');
 
 // const Koa = require('koa');
 // const route = require('koa-route');
@@ -81,8 +84,16 @@ ipcMain.on('getFiles', (event) => {
   })
 
   promise.then(res => {
-    const file_path = res.filePaths[0];
-    const serveice_url = common_function.getServiceUrl(file_path);
-    event.reply('getFileResponse', res, serveice_url);
+    if (res.filePaths && res.filePaths.length !== 0) {
+      const file_path = res.filePaths[0];
+      const serveice_url = getServiceUrl(file_path);
+      const is_json = checkFileFromat(file_path, 'json');
+
+      if (is_json) {
+
+      }
+    }
+
+    event.reply('getFileResponse');
   })
 })
