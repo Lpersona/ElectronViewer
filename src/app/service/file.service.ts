@@ -15,7 +15,7 @@ export class FileService {
 
   public getFile() {
     this.ipc.send('getFiles');
-    this.ipc.on('getFileResponse', (event: any, res, url) => {
+    this.ipc.once('getFileResponse', (event: any, res, url) => {
       console.log(event);
       console.log(res);
       console.log(url);
