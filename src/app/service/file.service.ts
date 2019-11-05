@@ -40,8 +40,8 @@ export class FileService {
         })
       );
 
-      tileset.readyPromise.then((tileset: any) => {
-        viewer.camera.flyToBoundingSphere(tileset.boundingSphere);
+      tileset.readyPromise.then((tile: any) => {
+        viewer.camera.flyToBoundingSphere(tile.boundingSphere);
       });
     });
   }
