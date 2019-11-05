@@ -9,14 +9,13 @@ const path = require('path');
 
 const {
   getServiceUrl,
-  checkFileFromat
+  checkFileFromat,
+  createService
 } = require('./function');
 
 // const Koa = require('koa');
 // const route = require('koa-route');
 // const serve = require('koa-static');
-
-// const koa_app = new Koa();
 
 // Place holders for our windows so they don't get garbage collected.
 let mainWindow = null;
@@ -86,14 +85,19 @@ ipcMain.on('getFiles', (event) => {
   promise.then(res => {
     if (res.filePaths && res.filePaths.length !== 0) {
       const file_path = res.filePaths[0];
-      const serveice_url = getServiceUrl(file_path);
+      const {
+        service_url,
+        file_name
+      } = getServiceUrl(file_path);
       const is_json = checkFileFromat(file_path, 'json');
 
       if (is_json) {
-
+        const port_number = createService(service_url);
+        const url = `http://localhost:${port_number}/${file_name}`;
+        event.reply('getFileResponse', url, port_number);
+      } else {
+        // 这里弹出错误提示 ==> 非json文件
       }
     }
-
-    event.reply('getFileResponse');
   })
 })
