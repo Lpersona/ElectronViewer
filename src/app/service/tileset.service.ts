@@ -4,7 +4,14 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class TilesetService {
+  public tilelist: any[];
   constructor() {}
 
-  public loadTileset(url: string) {}
+  public loadTileset(url: string) {
+    this.tilelist.push();
+  }
+
+  public removeTileset(tileset: any) {}
+
+  public toggleTileset(tileset: any) {}
 }
