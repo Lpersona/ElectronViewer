@@ -13,20 +13,12 @@ const {
   createService
 } = require('./function');
 
-// const Koa = require('koa');
-// const route = require('koa-route');
-// const serve = require('koa-static');
+const {
+  TileCollection
+} = require('./tilesetCollection');
 
 // Place holders for our windows so they don't get garbage collected.
 let mainWindow = null;
-
-// Port Number
-// let port_number = 9999;
-
-// const home = serve(path.join(__dirname) + '/app/');
-// koa_app.use(home);
-
-// koa_app.listen(port_number);
 
 async function createWindow() {
   // Define our main window size
@@ -40,9 +32,6 @@ async function createWindow() {
   });
 
   if (isDevMode) {
-    // Set our above template to the Menu Object if we are in development mode, dont want users having the devtools.
-    // Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplateDev));
-    // If we are developers we might as well open the devtools by default.
     mainWindow.webContents.openDevTools();
   }
 
@@ -92,12 +81,22 @@ ipcMain.on('getFiles', (event) => {
       const is_json = checkFileFromat(file_path, 'json');
 
       if (is_json) {
-        const port_number = createService(service_url);
+        const {
+          port_number,
+          tile_server
+        } = createService(service_url);
         const url = `http://localhost:${port_number}/${file_name}`;
+
+        TileCollection.addServer(port_number, tile_server);
         event.reply('getFileResponse', url, port_number);
       } else {
         // 这里弹出错误提示 ==> 非json文件
       }
     }
   })
+})
+
+ipcMain.on('removeTile', (event, port_number) => {
+  TileCollection.removeServer(port_number);
+  event.reply('removeTileResponse');
 })
