@@ -1,9 +1,4 @@
-const Koa = require('koa');
-const route = require('koa-route');
-const serve = require('koa-static');
-const cors = require('koa2-cors');
-
-const koa_app = new Koa();
+const http_server = require('http-server');
 
 const getServiceUrl = function (fileUrl) {
   if (fileUrl) {
@@ -30,21 +25,26 @@ const checkFileFromat = function (fileUrl, fromat) {
 }
 
 const createService = function (service_url) {
-  const home = serve(service_url);
   const port_number = getRandomPort();
 
-  koa_app.use(cors({
-    origin: '*'
-  }));
-  koa_app.use(home);
-  koa_app.listen(port_number);
+  const tile_server = http_server.createServer({
+    root: service_url,
+    cors: '*',
+  });
 
-  return port_number;
+  tile_server.listen(port_number);
+
+  return {
+    tile_server,
+    port_number
+  };
 }
 
 const createEarthService = function () {
   const earth_app = '';
-  const port_number = createService(earth_app);
+  const {
+    port_number
+  } = createService(earth_app);
   return `http://localhost:${port_number}/index.html`;
 }
 
