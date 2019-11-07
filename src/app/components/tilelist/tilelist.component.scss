@@ -3,5 +3,9 @@
   .control-container {
     display: flex;
     align-items: center;
+
+    .slide {
+      margin-left: 8px;
+    }
   }
 }

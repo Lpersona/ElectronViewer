@@ -1,31 +1,15 @@
-<mat-list class="tilelist" disableRipple=false>
+<mat-list class="tilelist" disableRipple=false *ngFor="let item of list">
   <mat-list-item class="mat-item">
-    <span>倾斜模型1</span>
+    <span>{{item.name}}</span>
     <section class="control-container">
-      <mat-slide-toggle></mat-slide-toggle>
       <button mat-icon-button color="primary">
-        <mat-icon aria-label="">delete</mat-icon>
+        <mat-icon aria-label="" (click)="flyToTile(item)">near_me</mat-icon>
       </button>
+      <button mat-icon-button color="primary">
+        <mat-icon aria-label="" (click)="deleteTile(item)">delete</mat-icon>
+      </button>
+      <mat-slide-toggle checked={item.show} (change)="toggleTile(item)" class="slide"></mat-slide-toggle>
     </section>
   </mat-list-item>
   <mat-divider></mat-divider>
-  <mat-list-item class="mat-item">
-    <span>倾斜模型1</span>
-    <section class="control-container">
-      <mat-slide-toggle></mat-slide-toggle>
-      <button mat-icon-button color="primary">
-        <mat-icon aria-label="">delete</mat-icon>
-      </button>
-    </section>
-  </mat-list-item>
-  <mat-divider></mat-divider>
-  <mat-list-item class="mat-item">
-    <span>倾斜模型1</span>
-    <section class="control-container">
-      <mat-slide-toggle></mat-slide-toggle>
-      <button mat-icon-button color="primary">
-        <mat-icon aria-label="">delete</mat-icon>
-      </button>
-    </section>
-  </mat-list-item>
 </mat-list>
