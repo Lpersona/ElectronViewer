@@ -1,0 +1,9 @@
+<div mat-dialog-content>
+  <p>{{data.info}}</p>
+  <mat-form-field>
+    <input matInput [(ngModel)]="inputData">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">确定</button>
+</div>
