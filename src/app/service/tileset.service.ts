@@ -12,7 +12,7 @@ export class TilesetService {
 
   constructor(private viewerService: ViewerService) {
     if ((window as any).require) {
-      this.ipc = (window as any).require('electron').ipcRender;
+      this.ipc = (window as any).require('electron').ipcRenderer;
     }
 
     this.tilelist = [];
@@ -45,7 +45,8 @@ export class TilesetService {
       this.tilelist.push({
         tile,
         portNumber,
-        name
+        name,
+        show: true
       });
     });
   }
@@ -58,6 +59,7 @@ export class TilesetService {
     if (tileset) {
       const { tile, portNumber } = tileset;
       this.viewer.scene.primitives.remove(tile);
+      this.deleteItemFromArray(tileset, this.tilelist);
       this.ipc.send('closePort', portNumber);
     }
   }
@@ -66,6 +68,22 @@ export class TilesetService {
     if (tileset) {
       const { tile } = tileset;
       tile.show = !tile.show;
+      tileset.show = tile.show;
+    }
+  }
+
+  public flyToTileset(tileset: any) {
+    if (tileset && tileset.tile) {
+      this.viewer.camera.flyToBoundingSphere(tileset.tile.boundingSphere);
+    }
+  }
+
+  private deleteItemFromArray(item: any, array: any[]) {
+    for (let i = 0; i < array.length; i++) {
+      if (array[i] === item) {
+        array.splice(i, 1);
+        break;
+      }
     }
   }
 }
