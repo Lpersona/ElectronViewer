@@ -1,16 +1,17 @@
-const TileCollection = {};
+const ServerCollection = {};
 
-TileCollection.tileArray = {};
+ServerCollection.tileArray = {};
 
-TileCollection.addServer = (port, server) => {
-  TileCollection.tileArray[port] = server;
+ServerCollection.addServer = (port, server) => {
+  ServerCollection.tileArray[port] = server;
 }
 
-TileCollection.removeServer = (port) => {
-  if (TileCollection.tileArray[port]) {
-    const server = TileCollection.tileArray[port];
+ServerCollection.removeServer = (port) => {
+  if (ServerCollection.tileArray[port]) {
+    const server = ServerCollection.tileArray[port];
+    delete ServerCollection.tileArray[port];
     server.close();
   }
 }
 
-module.exports.TileCollection = TileCollection;
+module.exports.ServerCollection = ServerCollection;

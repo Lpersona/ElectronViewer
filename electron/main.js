@@ -14,8 +14,8 @@ const {
 } = require('./function');
 
 const {
-  TileCollection
-} = require('./tilesetCollection');
+  ServerCollection
+} = require('./ServerCollection');
 
 // Place holders for our windows so they don't get garbage collected.
 let mainWindow = null;
@@ -87,7 +87,7 @@ ipcMain.on('getFiles', (event) => {
         } = createService(service_url);
         const url = `http://localhost:${port_number}/${file_name}`;
 
-        TileCollection.addServer(port_number, tile_server);
+        ServerCollection.addServer(port_number, tile_server);
         event.reply('getFileResponse', url, port_number);
       } else {
         // 这里弹出错误提示 ==> 非json文件
@@ -97,6 +97,6 @@ ipcMain.on('getFiles', (event) => {
 })
 
 ipcMain.on('removeTile', (event, port_number) => {
-  TileCollection.removeServer(port_number);
+  ServerCollection.removeServer(port_number);
   event.reply('removeTileResponse');
 })
