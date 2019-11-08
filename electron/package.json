@@ -1,14 +1,17 @@
 {
-  "name": "electron",
+  "name": "EasyViewer",
   "version": "1.0.0",
-  "description": "",
+  "description": "基于Electron&Angular&Cesium的三维模型查看器",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Liusiyan",
   "license": "ISC",
+  "dependencies": {
+    "http-server": "^0.11.1"
+  },
   "devDependencies": {
-    "electron": "^7.0.1"
+    "electron": "^7.1.1"
   }
 }
