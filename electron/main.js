@@ -4,13 +4,12 @@ const {
   ipcMain,
   dialog
 } = require('electron');
-const isDevMode = require('electron-is-dev');
-const path = require('path');
 
 const {
   getServiceUrl,
   checkFileFromat,
-  createService
+  createService,
+  createEarthService
 } = require('./function');
 
 const {
@@ -31,11 +30,9 @@ async function createWindow() {
     }
   });
 
-  if (isDevMode) {
-    mainWindow.webContents.openDevTools();
-  }
-
-  mainWindow.loadURL(`http://localhost:4200/`);
+  const earth_server = createEarthService();
+  //   mainWindow.loadURL(`http://localhost:4200/`);
+  mainWindow.loadURL(earth_server);
   mainWindow.webContents.on('dom-ready', () => {
     mainWindow.show();
   });

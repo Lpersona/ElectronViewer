@@ -1,4 +1,5 @@
 const http_server = require('http-server');
+const path = require('path');
 
 const getServiceUrl = function (fileUrl) {
   if (fileUrl) {
@@ -41,10 +42,11 @@ const createService = function (service_url) {
 }
 
 const createEarthService = function () {
-  const earth_app = '';
+  const earth_app = path.join(__dirname, 'app');
   const {
     port_number
   } = createService(earth_app);
+
   return `http://localhost:${port_number}/index.html`;
 }
 
@@ -56,3 +58,4 @@ function getRandomPort() {
 module.exports.getServiceUrl = getServiceUrl;
 module.exports.checkFileFromat = checkFileFromat;
 module.exports.createService = createService;
+module.exports.createEarthService = createEarthService;
