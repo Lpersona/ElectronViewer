@@ -4,7 +4,7 @@
   "description": "基于Electron&Angular&Cesium的三维模型查看器",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "electron-builder"
   },
   "author": "Liusiyan",
   "license": "ISC",
