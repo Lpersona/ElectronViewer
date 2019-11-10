@@ -6,6 +6,6 @@
   </section>
 </mat-toolbar>
 <mat-menu #loadTile="matMenu">
-  <button mat-menu-item>输入路径</button>
+  <button mat-menu-item (click)="useUrl()">输入路径</button>
   <button mat-menu-item (click)="selectFile()">本地文件</button>
 </mat-menu>

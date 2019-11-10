@@ -1,7 +1,10 @@
 <div mat-dialog-content>
   <p>{{data.info}}</p>
+  <mat-form-field *ngIf="data.url">
+    <input matInput [(ngModel)]="serviceUrl" placeholder="请输入服务地址" required>
+  </mat-form-field>
   <mat-form-field>
-    <input matInput [(ngModel)]="inputData">
+    <input matInput [(ngModel)]="inputData" placeholder="请输入模型名称">
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

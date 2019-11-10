@@ -19,6 +19,10 @@ export class HeaderComponent implements OnInit {
     this.fileService.getFile();
   }
 
+  public useUrl() {
+    this.fileService.loadUrl();
+  }
+
   public toggleSideState() {
     this.missionService.sideMission(true);
   }
