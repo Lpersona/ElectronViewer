@@ -18,7 +18,7 @@ export class TilesetService {
     this.tilelist = [];
   }
 
-  public loadTileset(url: string, portNumber: number, name: string) {
+  public loadTileset(url: string, name: string, portNumber?: number) {
     if (!this.viewer) {
       this.viewer = this.viewerService.getViewer();
     }
@@ -44,7 +44,7 @@ export class TilesetService {
 
       this.tilelist.push({
         tile,
-        portNumber,
+        portNumber: portNumber || NaN,
         name,
         show: true
       });
@@ -60,7 +60,11 @@ export class TilesetService {
       const { tile, portNumber } = tileset;
       this.viewer.scene.primitives.remove(tile);
       this.deleteItemFromArray(tileset, this.tilelist);
-      this.ipc.send('closePort', portNumber);
+
+      // 非本地开启的服务，不需要主进程关闭
+      if (isNaN(portNumber)) {
+        this.ipc.send('closePort', portNumber);
+      }
     }
   }
 
