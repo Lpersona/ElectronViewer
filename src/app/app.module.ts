@@ -17,13 +17,15 @@ import {
   MatIconModule,
   MatDialogModule,
   MatInputModule,
-  MatFormFieldModule
+  MatFormFieldModule,
+  MatSnackBarModule
 } from '@angular/material';
 
 import { HeaderComponent } from './components/header/header.component';
 import { EarthComponent } from './components/earth/earth.component';
 import { TilelistComponent } from './components/tilelist/tilelist.component';
 import { DialogComponent } from './components/dialog/dialog.component';
+import { SnackbarComponent } from './components/snackbar/snackbar.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,8 @@ import { DialogComponent } from './components/dialog/dialog.component';
     HeaderComponent,
     EarthComponent,
     TilelistComponent,
-    DialogComponent
+    DialogComponent,
+    SnackbarComponent
   ],
   imports: [
     BrowserModule,
@@ -48,9 +51,10 @@ import { DialogComponent } from './components/dialog/dialog.component';
     MatDialogModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     FormsModule
   ],
-  entryComponents: [DialogComponent],
+  entryComponents: [DialogComponent, SnackbarComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
