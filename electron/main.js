@@ -30,9 +30,9 @@ async function createWindow() {
     }
   });
 
-  const earth_server = createEarthService();
-  //   mainWindow.loadURL(`http://localhost:4200/`);
-  mainWindow.loadURL(earth_server);
+  // const earth_server = createEarthService();
+  // mainWindow.loadURL(earth_server);
+  mainWindow.loadURL(`http://localhost:4200/`);
   mainWindow.webContents.on('dom-ready', () => {
     mainWindow.show();
   });
@@ -78,14 +78,17 @@ ipcMain.on('getFiles', (event) => {
       const is_json = checkFileFromat(file_path, 'json');
 
       if (is_json) {
-        const {
-          port_number,
-          tile_server
-        } = createService(service_url);
-        const url = `http://localhost:${port_number}/${file_name}`;
+        createService(service_url).then(res => {
+          const {
+            port_number,
+            tile_server
+          } = res;
 
-        ServerCollection.addServer(port_number, tile_server);
-        event.reply('getFileResponse', url, port_number);
+          const url = `http://localhost:${port_number}/${file_name}`;
+
+          ServerCollection.addServer(port_number, tile_server);
+          event.reply('getFileResponse', url, port_number);
+        });
       } else {
         // 这里弹出错误提示 ==> 非json文件
       }

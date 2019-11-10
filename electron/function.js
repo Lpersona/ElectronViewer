@@ -1,5 +1,6 @@
 const http_server = require('http-server');
 const path = require('path');
+const net = require('net');
 
 const getServiceUrl = function (fileUrl) {
   if (fileUrl) {
@@ -25,8 +26,8 @@ const checkFileFromat = function (fileUrl, fromat) {
   return false;
 }
 
-const createService = function (service_url) {
-  const port_number = getRandomPort();
+const createService = async function (service_url) {
+  const port_number = await getRandomPort();
 
   const tile_server = http_server.createServer({
     root: service_url,
@@ -34,6 +35,7 @@ const createService = function (service_url) {
   });
 
   tile_server.listen(port_number);
+
 
   return {
     tile_server,
@@ -50,9 +52,38 @@ const createEarthService = function () {
   return `http://localhost:${port_number}/index.html`;
 }
 
-function getRandomPort() {
+async function getRandomPort() {
   const port = parseInt(Math.random() * 30001 + 10000, 10);
-  return port;
+  const is_useful = await checkPort(13328);
+  console.log(is_useful);
+  if (is_useful) {
+    return port;
+  } else {
+    getRandomPort();
+  }
+}
+
+function checkPort(port_number) {
+  // TODO: 不能检查到重复使用的端口号
+  const server = net.createServer().listen(port_number);
+
+  const promise = new Promise((resolve, reject) => {
+    server.on('listening', () => {
+      console.log('listening')
+      resolve(true);
+      server.close();
+    })
+
+    server.on('error', (error) => {
+      console.log('error');
+      console.log(error.code)
+      if (error.code === 'EADDRINUSE') {
+        resolve(false);
+      }
+    })
+  })
+
+  return promise;
 }
 
 module.exports.getServiceUrl = getServiceUrl;
