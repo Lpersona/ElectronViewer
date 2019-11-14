@@ -1,15 +1,22 @@
 const ServerCollection = {};
 
-ServerCollection.tileArray = {};
+ServerCollection.tiles = {};
 
 ServerCollection.addServer = (port, server) => {
-  ServerCollection.tileArray[port] = server;
+  ServerCollection.tiles[port] = server;
 }
 
 ServerCollection.removeServer = (port) => {
-  if (ServerCollection.tileArray[port]) {
-    const server = ServerCollection.tileArray[port];
-    delete ServerCollection.tileArray[port];
+  if (ServerCollection.tiles[port]) {
+    const server = ServerCollection.tiles[port];
+    delete ServerCollection.tiles[port];
+    server.close();
+  }
+}
+
+ServerCollection.removeAll = () => {
+  for (let key of Object.keys(ServerCollection.tiles)) {
+    const server = ServerCollection.tiles[key];
     server.close();
   }
 }

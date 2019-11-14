@@ -54,8 +54,8 @@ const createEarthService = function () {
 
 async function getRandomPort() {
   const port = parseInt(Math.random() * 30001 + 10000, 10);
-  const is_useful = await checkPort(13328);
-  console.log(is_useful);
+  const is_useful = await checkPort(port);
+
   if (is_useful) {
     return port;
   } else {
@@ -69,14 +69,11 @@ function checkPort(port_number) {
 
   const promise = new Promise((resolve, reject) => {
     server.on('listening', () => {
-      console.log('listening')
       resolve(true);
       server.close();
     })
 
     server.on('error', (error) => {
-      console.log('error');
-      console.log(error.code)
       if (error.code === 'EADDRINUSE') {
         resolve(false);
       }
