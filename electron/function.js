@@ -43,11 +43,11 @@ const createService = async function (service_url) {
   };
 }
 
-const createEarthService = function () {
+const createEarthService = async function () {
   const earth_app = path.join(__dirname, 'app');
   const {
     port_number
-  } = createService(earth_app);
+  } = await createService(earth_app);
 
   return `http://localhost:${port_number}/index.html`;
 }
@@ -64,7 +64,6 @@ async function getRandomPort() {
 }
 
 function checkPort(port_number) {
-  // TODO: 不能检查到重复使用的端口号
   const server = net.createServer().listen(port_number);
 
   const promise = new Promise((resolve, reject) => {

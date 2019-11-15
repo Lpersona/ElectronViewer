@@ -30,9 +30,11 @@ async function createWindow() {
     }
   });
 
-  // const earth_server = createEarthService();
-  // mainWindow.loadURL(earth_server);
-  mainWindow.loadURL(`http://localhost:4200/`);
+  const earth_server = await createEarthService();
+
+  console.log(earth_server);
+  mainWindow.loadURL(earth_server);
+  //   mainWindow.loadURL(`http://localhost:4200/`);
   mainWindow.webContents.on('dom-ready', () => {
     mainWindow.show();
   });
