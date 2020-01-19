@@ -4,29 +4,20 @@ const {
   ipcMain,
   dialog
 } = require('electron');
-const isDevMode = require('electron-is-dev');
-const path = require('path');
 
 const {
-  getServiceUrl
+  getServiceUrl,
+  checkFileFromat,
+  createService,
+  createEarthService
 } = require('./function');
 
-// const Koa = require('koa');
-// const route = require('koa-route');
-// const serve = require('koa-static');
-
-// const koa_app = new Koa();
+const {
+  ServerCollection
+} = require('./ServerCollection');
 
 // Place holders for our windows so they don't get garbage collected.
 let mainWindow = null;
-
-// Port Number
-// let port_number = 9999;
-
-// const home = serve(path.join(__dirname) + '/app/');
-// koa_app.use(home);
-
-// koa_app.listen(port_number);
 
 async function createWindow() {
   // Define our main window size
@@ -39,14 +30,11 @@ async function createWindow() {
     }
   });
 
-  if (isDevMode) {
-    // Set our above template to the Menu Object if we are in development mode, dont want users having the devtools.
-    // Menu.setApplicationMenu(Menu.buildFromTemplate(menuTemplateDev));
-    // If we are developers we might as well open the devtools by default.
-    mainWindow.webContents.openDevTools();
-  }
+  const earth_server = await createEarthService();
 
-  mainWindow.loadURL(`http://localhost:4200/`);
+  console.log(earth_server);
+  mainWindow.loadURL(earth_server);
+  //   mainWindow.loadURL(`http://localhost:4200/`);
   mainWindow.webContents.on('dom-ready', () => {
     mainWindow.show();
   });
@@ -62,6 +50,7 @@ app.on('window-all-closed', function () {
   // On OS X it is common for applications and their menu bar
   // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== 'darwin') {
+    ServerCollection.removeAll();
     app.quit();
   }
 });
@@ -83,8 +72,34 @@ ipcMain.on('getFiles', (event) => {
   })
 
   promise.then(res => {
-    const file_path = res.filePaths[0];
-    const serveice_url = getServiceUrl(file_path);
-    event.reply('getFileResponse', res, serveice_url);
+    if (res.filePaths && res.filePaths.length !== 0) {
+      const file_path = res.filePaths[0];
+      const {
+        service_url,
+        file_name
+      } = getServiceUrl(file_path);
+      const is_json = checkFileFromat(file_path, 'json');
+
+      if (is_json) {
+        createService(service_url).then(res => {
+          const {
+            port_number,
+            tile_server
+          } = res;
+
+          const url = `http://localhost:${port_number}/${file_name}`;
+
+          ServerCollection.addServer(port_number, tile_server);
+          event.reply('getFileResponse', url, port_number);
+        });
+      } else {
+        // 这里弹出错误提示 ==> 非json文件
+      }
+    }
   })
+})
+
+ipcMain.on('removeTile', (event, port_number) => {
+  ServerCollection.removeServer(port_number);
+  event.reply('removeTileResponse');
 })

@@ -1,7 +1,11 @@
 <mat-toolbar color="primary" class="header">
   Easy-Viewer
   <section class="btn-container">
-    <button mat-button (click)="selectFile()">选择文件</button>
-    <button mat-button>主视角</button>
+    <button mat-button [matMenuTriggerFor]="loadTile">加载模型</button>
+    <button mat-button (click)="toggleSideState()">数据列表</button>
   </section>
 </mat-toolbar>
+<mat-menu #loadTile="matMenu">
+  <button mat-menu-item (click)="useUrl()">输入路径</button>
+  <button mat-menu-item (click)="selectFile()">本地文件</button>
+</mat-menu>

@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { MissionService } from './service/mission.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,7 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'easy-viewer';
+  private title = 'easy-viewer';
+  private subscription: Subscription;
+  public sidebarState: boolean;
 
-  constructor() {}
+  constructor(private missionService: MissionService) {
+    this.subscription = this.missionService.missionSide$.subscribe(state => {
+      this.sidebarState = !this.sidebarState;
+    });
+  }
 }
