@@ -1,28 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { TilesetService } from 'src/app/service/tileset.service';
+import { Component, OnInit } from "@angular/core";
+import { TilesetService, tileListItem } from "src/app/service/tileset.service";
 
 @Component({
-  selector: 'app-tilelist',
-  templateUrl: './tilelist.component.html',
-  styleUrls: ['./tilelist.component.scss']
+	selector: "app-tilelist",
+	templateUrl: "./tilelist.component.html",
+	styleUrls: ["./tilelist.component.scss"],
 })
 export class TilelistComponent implements OnInit {
-  public list: any[];
-  constructor(private tilesetService: TilesetService) {
-    this.list = tilesetService.tilelist;
-  }
+	public list: tileListItem[];
+	constructor(private tilesetService: TilesetService) {
+		this.list = tilesetService.tilelist;
+	}
 
-  ngOnInit() {}
+	ngOnInit() {}
 
-  public deleteTile(tileset: any) {
-    this.tilesetService.removeTileset(tileset);
-  }
+	public deleteTile(tileset: tileListItem) {
+		this.tilesetService.removeTileset(tileset);
+	}
 
-  public toggleTile(tileset: any) {
-    this.tilesetService.toggleTileset(tileset);
-  }
+	public toggleTile(tileset: tileListItem) {
+		this.tilesetService.toggleTileset(tileset);
+	}
 
-  public flyToTile(tilelist: any) {
-    this.tilesetService.flyToTileset(tilelist);
-  }
+	public flyToTile(tilelist: tileListItem) {
+		this.tilesetService.flyToTileset(tilelist);
+	}
 }
