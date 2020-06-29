@@ -1,8 +1,11 @@
-<section class="app-contaienr">
+<section class="app-container">
   <app-header></app-header>
   <mat-drawer-container>
-    <mat-drawer #sidebar='' mode="over" [(opened)]="sidebarState">
-      <app-tilelist></app-tilelist>
+    <mat-drawer #sidebar='' mode="over" [(opened)]="openState">
+        <div [ngSwitch]="openType">
+            <app-tilelist *ngSwitchCase="'tile'" ></app-tilelist>
+            <app-maplayer *ngSwitchCase="'map'" ></app-maplayer>
+        </div>
     </mat-drawer>
     <mat-drawer-content>
       <app-earth></app-earth>

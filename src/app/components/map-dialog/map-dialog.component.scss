@@ -1,0 +1,17 @@
+.mapDialog {
+	overflow: hidden;
+	height: 245px;
+
+	p {
+		margin-top: 0;
+	}
+	.radio-label {
+		display: block;
+	}
+	.radio-group {
+		margin-top: 15px;
+		width: 100%;
+		display: flex;
+		justify-content: space-between;
+	}
+}

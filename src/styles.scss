@@ -2,17 +2,26 @@
 
 html,
 body {
-  height: 100%;
+	height: 100%;
 }
 body {
-  margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+	margin: 0;
+	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.tilelist {
-  .mat-item .mat-list-item-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
+.tilelist,
+.mapListContaner {
+	.mat-item .mat-list-item-content {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+	}
+}
+
+.app-container {
+	.mat-drawer-inner-container {
+		&:first-child {
+			height: 100%;
+		}
+	}
 }

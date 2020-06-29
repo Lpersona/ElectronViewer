@@ -1,5 +1,5 @@
 export enum MapType {
-	WMTS = 0,
+	WMTS = 1,
 	NORMAL,
 	ARCGIS,
 }

@@ -1,0 +1,27 @@
+<div mat-dialog-content class="mapDialog">
+    <p>添加地图</p>
+    
+    <mat-form-field>
+        <input matInput [(ngModel)]="name" placeholder="请输入模型名称" required>
+    </mat-form-field>
+
+    <mat-form-field>
+        <input matInput [(ngModel)]="serviceUrl" placeholder="请输入服务地址" required>
+    </mat-form-field>
+    
+    <div class="">
+        <label class="radio-label">选择链接类型</label>
+        <mat-radio-group
+            class="radio-group"
+            [(ngModel)]="type"
+        >
+            <mat-radio-button *ngFor="let maptype of types" [value]="maptype.value">
+                {{maptype.name}}
+            </mat-radio-button>
+        </mat-radio-group>
+    </div>
+</div>
+
+<div mat-dialog-actions>
+    <button mat-button (click)="closeDialog()">确定</button>
+</div>

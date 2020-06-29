@@ -1,8 +1,9 @@
 <mat-toolbar color="primary" class="header">
   Easy-Viewer
   <section class="btn-container">
+    <button mat-button (click)="toggleSideState('map')">地图</button>
     <button mat-button [matMenuTriggerFor]="loadTile">加载模型</button>
-    <button mat-button (click)="toggleSideState()">数据列表</button>
+    <button mat-button (click)="toggleSideState('tile')">数据列表</button>
   </section>
 </mat-toolbar>
 <mat-menu #loadTile="matMenu">

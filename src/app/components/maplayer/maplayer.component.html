@@ -1,0 +1,15 @@
+<section class="mapListContaner">
+    <mat-list class="mapList" disableRipple=false *ngFor="let item of list | keyvalue">
+        <mat-list-item class="mat-item">
+            <span>{{item.key}}</span>
+            <section class="control-container">
+            <button mat-icon-button color="primary">
+                <mat-icon aria-label="" (click)="deleteMap(item.key)">delete</mat-icon>
+            </button>
+            <mat-slide-toggle checked={item.show} (change)="toggleMap(item.key)" class="slide"></mat-slide-toggle>
+            </section>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+    <button mat-button color="accent" class="addBtn" (click)="addMap()">添加地图</button>
+</section>
