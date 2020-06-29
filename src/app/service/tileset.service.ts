@@ -34,7 +34,6 @@ export class TilesetService {
 			new Cesium.Cesium3DTileset({
 				url,
 				skipLevelOfDetail: true,
-				maximumNumberOfLoadedTiles: 500,
 				maximumMemoryUsage: 512,
 				baseScreenSpaceError: 1024,
 				skipScreenSpaceErrorFactor: 16,

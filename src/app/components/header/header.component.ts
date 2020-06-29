@@ -21,7 +21,6 @@ export class HeaderComponent implements OnInit {
 	}
 
 	public toggleSideState(type: sideState["type"]) {
-		console.log(type);
 		this.missionService.sideMission({ state: true, type: type });
 	}
 }
