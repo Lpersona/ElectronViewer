@@ -33,6 +33,7 @@ export class MapService {
 				event: Electron.IpcRendererEvent,
 				store: { [key: string]: { name: string; type: MapType; serviceUrl: string } },
 			) => {
+				console.log(store);
 				Object.keys(store).forEach((data) => {
 					const { name, type, serviceUrl } = store[data];
 					this._addMapFromLink(serviceUrl, type, name);
@@ -102,6 +103,7 @@ export class MapService {
 		if (this.mapList.has(name)) {
 			viewer.imageryLayers.remove(this.mapList.get(name));
 			this.mapList.delete(name);
+			this.ipc.send("removeLayer", name);
 		}
 	}
 

@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import * as Cesium from "cesium";
-import { MapService } from "./map.service";
 
 @Injectable({
 	providedIn: "root",
@@ -8,7 +7,7 @@ import { MapService } from "./map.service";
 export class ViewerService {
 	public viewer: Cesium.Viewer;
 
-	constructor(private mapService: MapService) {}
+	constructor() {}
 	public init(id: string) {
 		this.viewer = new Cesium.Viewer("map", {
 			animation: false, // 是否显示动画控件(左下方那个)
@@ -36,7 +35,6 @@ export class ViewerService {
 			}),
 		);
 
-		this.mapService.loadLayer();
 		return this.viewer;
 	}
 
