@@ -4,10 +4,9 @@
 
 ### 打包说明
 
-1. 运行 ng build --prod 打包 web 页面
-2. 将 dist/easy-viewer 内的文件复制到 electron/app 内
-3. cd electron/
-4. npm run build
+1. yarn && cd electron && yarn && cd ..
+1. yarn build
+2. yarn ebuild
 
 ### 其他说明
 
