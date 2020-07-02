@@ -4,6 +4,7 @@ import { MapType } from "../type";
 import * as Cesium from "cesium";
 import { MatDialog } from "@angular/material";
 import { MapDialogComponent } from "../components/map-dialog/map-dialog.component";
+import { IpcRenderer } from "electron";
 
 interface DialogResult {
 	name: string;
@@ -16,8 +17,29 @@ interface DialogResult {
 })
 export class MapService {
 	public mapList = new Map<string, Cesium.ImageryLayer>();
+	private ipc: IpcRenderer;
 
-	constructor(private viewerService: ViewerService, private dialog: MatDialog) {}
+	constructor(private viewerService: ViewerService, private dialog: MatDialog) {
+		if ((window as any).require) {
+			this.ipc = (window as any).require("electron").ipcRenderer;
+		}
+	}
+
+	public loadLayer() {
+		this.ipc.send("loadLayer");
+		this.ipc.once(
+			"loadLayerResponse",
+			(
+				event: Electron.IpcRendererEvent,
+				store: { [key: string]: { name: string; type: MapType; serviceUrl: string } },
+			) => {
+				Object.keys(store).forEach((data) => {
+					const { name, type, serviceUrl } = store[data];
+					this._addMapFromLink(serviceUrl, type, name);
+				});
+			},
+		);
+	}
 
 	public addMap() {
 		const dialogRef = this.dialog.open(MapDialogComponent, {
@@ -30,6 +52,7 @@ export class MapService {
 
 			if (name && type && serviceUrl) {
 				this._addMapFromLink(serviceUrl, type, name);
+				this.ipc.send("addLayer", name, serviceUrl, type);
 			}
 		});
 	}
