@@ -13,7 +13,7 @@
         "http-server": "^0.11.1"
     },
     "devDependencies": {
-        "electron": "^7.1.1"
+        "electron": "^13.6.6"
     },
     "private": true
 }
